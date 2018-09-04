@@ -1,0 +1,23 @@
+body{
+    margin: 0;
+    background-color: red;
+    color: white;
+    font-size: 28px;
+
+}
+
+.board{
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.card{
+    width: 125px;
+    height: 125px;
+    display: inline-block;
+    margin: 3px;
+    background-image: url("../jpg/trollface.png");
+
+}

@@ -66,6 +66,7 @@ card11.addEventListener("click", function() {
 
 var one_visible = false;
 var turn_counter = 0;
+var index_visible_card;
 
 
 
@@ -75,4 +76,41 @@ function reveal_card(number) {
   let picture = "url(..jpg/" + cards[number] + ")";
 
   $("#card" + number).css("background-image", picture); // odsłanianie karty
+    $("#card" + number).addClass("card_active");
+    $("#card" + number).removeClass("card");
+
+
+    if(one_visible == false){
+        //pierwsza karta
+        one_visible = true;
+        index_visible_card = number;
+    } else {
+        //druga karta
+
+        if(cards[index_visible_card] == cards[number]){
+           // alert("Para!")
+
+            setTimeout(function(){
+                hide2Cards(number, index_visible_card)
+            },750);
+
+            
+
+        } else {
+            alert("Błąd!")
+        }
+
+        turn_counter++
+
+        $('.score').html('Tura: '+ turn_counter);
+        one_visible = false;        
+    }
+
+
+
+}
+
+function hide2Cards(number1, number2){
+    $('#card' + number1).css('opacity', '0');
+    $('#card' + number2).css('opacity', '0');
 }

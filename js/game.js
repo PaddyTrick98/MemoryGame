@@ -64,53 +64,79 @@ card11.addEventListener("click", function() {
   reveal_card(11);
 });
 
-var one_visible = false;
-var turn_counter = 0;
-var index_visible_card;
+let one_visible = false;
+let turn_counter = 0;
+let index_visible_card;
+let lock = false; // na początku gry żadna z kart nie jest odkryta, dlatego blokada nie obowiązuje, dlatego "false".
+let pairs = 6;
 
-
-
+// Odsłanianie karty
 function reveal_card(number) {
-  //alert(number);
+  let valueOpacity = $("#card" + number).css("opacity");
 
-  let picture = "url(..jpg/" + cards[number] + ")";
+  if (valueOpacity != 0 && lock == false) {
+    // jeżeli opacity będzie różne od 0, to wykona się kod poniżej. Zastosowałem to po to aby liczba tur nie powiększała się podczas klikania na ukryte karty.
 
-  $("#card" + number).css("background-image", picture); // odsłanianie karty
-    $("#card" + number).addClass("card_active");
-    $("#card" + number).removeClass("card");
+    lock = true;
 
+    let picture = "url(..jpg/" + cards[number] + ")";
 
-    if(one_visible == false){
-        //pierwsza karta
-        one_visible = true;
-        index_visible_card = number;
+    $("#card" + number).css("background-image", picture);
+    $("#card" + number).addClass("card_active"); // dodaje klase "card_active" w której w css ustawiłem efekt odsłoniętej już karty
+    $("#card" + number).removeClass("card"); // usuwam klasę "Card" po to by klasa "card_active" mogła ją zastąpić
+
+    if (one_visible == false) {
+      //pierwsza karta
+      one_visible = true;
+      index_visible_card = number;
+      lock = false;
     } else {
-        //druga karta
+      //druga karta
 
-        if(cards[index_visible_card] == cards[number]){
-           // alert("Para!")
+      if (cards[index_visible_card] == cards[number]) {
+        //warunek znalezienia kart
+        // alert("Para!")
 
-            setTimeout(function(){
-                hide2Cards(number, index_visible_card)
-            },750);
+        setTimeout(function() {
+          hide2Cards(number, index_visible_card);
+        }, 750); // ukrywa odkryte karty
 
-            
+        document.getElementById("good_choice").play(); // dodaje efekt dźwiękowy na poprawne dobranie kart
+      } else {
+        document.getElementById("wrong_choice").play(); // dodaje efekt dźwiękowy na błędne dobranie kart
 
-        } else {
-            alert("Błąd!")
-        }
+        setTimeout(function() {
+          return2Cards(number, index_visible_card);
+        }, 1000);
+      }
 
-        turn_counter++
+      turn_counter++;
 
-        $('.score').html('Tura: '+ turn_counter);
-        one_visible = false;        
+      $(".score").html("Tura: " + turn_counter);
+      one_visible = false;
     }
-
-
-
+  }
 }
 
-function hide2Cards(number1, number2){
-    $('#card' + number1).css('opacity', '0');
-    $('#card' + number2).css('opacity', '0');
+function hide2Cards(number1, number2) {
+  $("#card" + number1).css("opacity", "0"); //ukrywam widoczność karty, zamiast ją usuwać , po to aby struktura planszy po odkryciu kart się nie zepsuła
+  $("#card" + number2).css("opacity", "0");
+
+  pairs--;
+  if(pairs == 0){
+    $('.board').html("<h1>Wygrałeś! <br> Zrobiłeś to w " + turn_counter + " rund </h1>");
+  }
+  lock = false;
+}
+
+function return2Cards(number1, number2) {
+  $("#card" + number1).css("background-image", "url(jpg/dc.jpg)");
+  $("#card" + number1).addClass("card");
+  $("#card" + number1).removeClass("card_active");
+
+  $("#card" + number2).css("background-image", "url(jpg/dc.jpg)");
+  $("#card" + number2).addClass("card");
+  $("#card" + number2).removeClass("card_active");
+
+  lock = false;
 }

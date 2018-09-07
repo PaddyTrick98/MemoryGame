@@ -22,18 +22,20 @@ h1{
   letter-spacing: 5px;
   margin-top: 20px;
   margin-bottom: 0;
+  color: yellow;
 }
 header {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  color: white;
+  color: yellow;
 }
 
 .win_rund {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: yellow;
 }
 
 .board {
@@ -76,4 +78,5 @@ header {
 .score {
   margin-top: 5px;
   letter-spacing: 2px;
+  color: yellow;
 }

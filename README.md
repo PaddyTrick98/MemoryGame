@@ -1,8 +1,8 @@
-## MemoryGame
+### MemoryGame
 
 Zagraj w demo: https://paddytrick98.github.io/MemoryGame/
 
-### Opis
+# Opis
 W projekcie została stworzona gra w "pamięć". Należy w jak najmniejszej liczbie tur dopsować wszystkie pary. 
 Tematyką nawiązałem do filmu "Justice League" 
 

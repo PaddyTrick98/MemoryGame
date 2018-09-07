@@ -5,7 +5,7 @@ var cards = [
   "../jpg/superman.jpeg",
   "../jpg/The-Flash.jpg",
   "../jpg/wonder-woman.jpg"
-]; 
+];
 
 // funkcja, która dubluje tablice oraz sortuje ją w losowej kolejności
 const shuffleArray = arr => [...arr, ...arr].sort(() => 0.5 - Math.random());
@@ -63,9 +63,17 @@ card11.addEventListener("click", function() {
 });
 
 let one_visible = false;
+// jeżeli będzie na true, to oznacza że pierwsza karta jest już odsłonięta
+
 let turn_counter = 0;
-let index_visible_card;
-let lock = false; // na początku gry żadna z kart nie jest odkryta, dlatego blokada nie obowiązuje, dlatego "false".
+// liczba wykorzystanych rund
+
+let visible_card;
+// index widocznej pierwszej karty
+
+let lock = false;
+// na początku gry żadna z kart nie jest odkryta, dlatego blokada nie obowiązuje, dlatego "false".
+
 let pairs = 6;
 
 // Odsłanianie karty
@@ -75,42 +83,42 @@ function reveal_card(number) {
   if (valueOpacity != 0 && lock == false) {
     // jeżeli opacity będzie różne od 0, to wykona się kod poniżej. Zastosowałem to po to aby liczba tur nie powiększała się podczas klikania na ukryte karty.
 
-    lock = true;
+    lock = true; //włączenie blokady
 
     let picture = "url(..jpg/" + cards[number] + ")";
 
-    $("#card" + number).css("background-image", picture);
+    $("#card" + number).css("background-image", picture); // odsłanianie każdej karty
     $("#card" + number).addClass("card_active"); // dodaje klase "card_active" w której w css ustawiłem efekt odsłoniętej już karty
     $("#card" + number).removeClass("card"); // usuwam klasę "Card" po to by klasa "card_active" mogła ją zastąpić
 
     if (one_visible == false) {
       //pierwsza karta
       one_visible = true;
-      index_visible_card = number;
-      lock = false;
+      visible_card = number;
+      lock = false; //zdjęcie blokady
     } else {
       //druga karta
 
-      if (
-        cards[index_visible_card] == cards[number] &&
-        index_visible_card != number
-      ) {
+      if (cards[visible_card] == cards[number] && visible_card != number) {
         //warunek znalezienia kart
-        // alert("Para!")
 
         setTimeout(function() {
-          hide2Cards(number, index_visible_card);
+          hide2Cards(number, visible_card);
         }, 750); // ukrywa odkryte karty
 
-        document.getElementById("good_choice").play(); // dodaje efekt dźwiękowy na poprawne dobranie kart
+        document.getElementById("good_choice").play();
+        // dodaje efekt dźwiękowy na poprawne dobranie kart
       } else {
-        document.getElementById("wrong_choice").play(); // dodaje efekt dźwiękowy na błędne dobranie kart
+        document.getElementById("wrong_choice").play();
+        // dodaje efekt dźwiękowy na błędne dobranie kart
 
+        //powrót karty do początkowej pozycji
         setTimeout(function() {
-          return2Cards(number, index_visible_card);
+          return2Cards(number, visible_card);
         }, 1000);
       }
-      if (index_visible_card != number) {
+      if (visible_card != number) {
+        // turn_counter jest po to w if, aby nie zaliczała się tura po drugim kliknięciu tej samej karty
         turn_counter++;
       }
 
@@ -133,9 +141,10 @@ function hide2Cards(number1, number2) {
     );
     document.getElementById("win_game").play();
   }
-  lock = false;
+  lock = false; // zdejmowanie blokady
 }
 
+//powrót karty do pozycji początkowej
 function return2Cards(number1, number2) {
   $("#card" + number1).css("background-image", "url(jpg/dc.jpg)");
   $("#card" + number1).addClass("card");
@@ -145,5 +154,5 @@ function return2Cards(number1, number2) {
   $("#card" + number2).addClass("card");
   $("#card" + number2).removeClass("card_active");
 
-  lock = false;
+  lock = false;//zdejmowanie blokady
 }

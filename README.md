@@ -12,6 +12,10 @@ Tematyką nawiązałem do filmu "Justice League"
 - JavaScript 
 - [jQuery](https://jquery.com/)
 
+# Funckjonalności
+- Losowanie kart z tablicy
+- Animacja aktywnych kart (podświetlenie, skalowanie)
+
 
 # To do
 - Animacja Flip

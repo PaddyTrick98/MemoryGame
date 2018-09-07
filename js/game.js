@@ -5,7 +5,7 @@ var cards = [
   "../jpg/superman.jpeg",
   "../jpg/The-Flash.jpg",
   "../jpg/wonder-woman.jpg"
-]; // w tym miejscu wstawie grafiki kart w odpowiedniej kolejności
+]; 
 
 // funkcja, która dubluje tablice oraz sortuje ją w losowej kolejności
 const shuffleArray = arr => [...arr, ...arr].sort(() => 0.5 - Math.random());
@@ -114,7 +114,7 @@ function reveal_card(number) {
         turn_counter++;
       }
 
-      $(".score").html("Tura: " + turn_counter);
+      $(".score").html("Round: " + turn_counter);
       one_visible = false;
     }
   }
@@ -127,9 +127,9 @@ function hide2Cards(number1, number2) {
   pairs--;
   if (pairs == 0) {
     $(".board").html(
-      "<h1 class='win_rund'>Wygrałeś! <br> Zrobiłeś to w " +
+      "<h1 class='win_rund'>You won! <br> You did it in " +
         turn_counter +
-        " rund </h1>"
+        " rounds </h1>"
     );
     document.getElementById("win_game").play();
   }

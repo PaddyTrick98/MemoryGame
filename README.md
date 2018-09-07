@@ -21,3 +21,4 @@ Tematyką nawiązałem do filmu "Justice League"
 - Animacja Flip
 - Restart Gry
 - Poziomy Trudności
+- Responsywność strony

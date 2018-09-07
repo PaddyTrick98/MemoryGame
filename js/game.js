@@ -1,18 +1,15 @@
 var cards = [
-'../jpg/batman.jpg',
-'../jpg/joker.jpg',
-'../jpg/oliver.jpg',
-'../jpg/superman.jpeg',
-'../jpg/The-Flash.jpg',
-'../jpg/wonder-woman.jpg',
+  "../jpg/batman.jpg",
+  "../jpg/cyborg.jpg",
+  "../jpg/aquamen.jpg",
+  "../jpg/superman.jpeg",
+  "../jpg/The-Flash.jpg",
+  "../jpg/wonder-woman.jpg"
 ]; // w tym miejscu wstawie grafiki kart w odpowiedniej kolejności
 
-
 // funkcja, która dubluje tablice oraz sortuje ją w losowej kolejności
-let shuffleArray = (array) => $.map(array, (element) => [element, element]).sort(() => 0.5 - Math.random());
-
+const shuffleArray = arr => [...arr, ...arr].sort(() => 0.5 - Math.random());
 cards = shuffleArray(cards);
-
 
 // Wywoływacz karty
 var card0 = document.getElementById("card0");
@@ -94,7 +91,10 @@ function reveal_card(number) {
     } else {
       //druga karta
 
-      if (cards[index_visible_card] == cards[number] && index_visible_card != number) {
+      if (
+        cards[index_visible_card] == cards[number] &&
+        index_visible_card != number
+      ) {
         //warunek znalezienia kart
         // alert("Para!")
 
@@ -110,17 +110,14 @@ function reveal_card(number) {
           return2Cards(number, index_visible_card);
         }, 1000);
       }
-      if (index_visible_card != number){
+      if (index_visible_card != number) {
         turn_counter++;
       }
-      
 
       $(".score").html("Tura: " + turn_counter);
       one_visible = false;
     }
   }
-
- 
 }
 
 function hide2Cards(number1, number2) {
@@ -128,9 +125,13 @@ function hide2Cards(number1, number2) {
   $("#card" + number2).css("opacity", "0");
 
   pairs--;
-  if(pairs == 0){
-    $('.board').html("<h1>Wygrałeś! <br> Zrobiłeś to w " + turn_counter + " rund </h1>");
-    document.getElementById('win_game').play();
+  if (pairs == 0) {
+    $(".board").html(
+      "<h1 class='win_rund'>Wygrałeś! <br> Zrobiłeś to w " +
+        turn_counter +
+        " rund </h1>"
+    );
+    document.getElementById("win_game").play();
   }
   lock = false;
 }
